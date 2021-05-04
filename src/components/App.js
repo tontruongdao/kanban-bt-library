@@ -11,19 +11,7 @@ const App = () => {
   // ##### Helpers
 
   const onDragEnd = (result) => {
-    // Result Object Propertoes
-    // const result = {
-    //  draggableId: 'task-1'
-    //  type:'TYPE'
-    //  reason: 'DROP',
-    //  source: {
-    //    droppableId: 'column-1'
-    //    index: 0
-    //  },
-    //  destination: {
-    //    droppableId: 'column-1'
-    //    index: 1
-    //  }
+
     // console.log(result)
 
     const { destination, source, draggableId } = result;
@@ -54,7 +42,7 @@ const App = () => {
       taskIds: newTaskIds
     }
 
-    console.log(newColumn)
+    // console.log(newColumn)
 
     // Updating todo State to avoid mutating OG State
     const newTodo = {
@@ -82,3 +70,36 @@ const App = () => {
 }
 
 export default App
+
+
+
+
+    // Result Object Properties
+    // const result = {
+    //  draggableId: 'fisrTask'
+    //  type:'TYPE'
+    //  reason: 'DROP',
+    //  source: {
+    //    droppableId: 'fisrtCol'
+    //    index: 0
+    //  },
+    //  destination: {
+    //    droppableId: 'fisrtCol'
+    //    index: 1
+    //  }
+
+
+
+    // Snapshot Object Properties
+    // const draggableSnapshop = {
+    //  isDragging: true
+    //  draggingOver:'firstCol'
+    // }
+
+
+
+    // Snapshot Object Properties
+    // const droppableSnapshop = {
+    //  isDraggingOver: true
+    //  draggingOverWith:'firstTask'
+    // }

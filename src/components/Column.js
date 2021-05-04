@@ -24,16 +24,17 @@ const Column = ({ column: { title, id }, tasks }) => {
           in our case it is the TaskList
 
         - InnerRef function supply the DOM node to beautiful-dnd 
-        
+
         - The Placeholder is a React Element that is used to
           increase the available space in a 
           droppable during a drag when is needed
           Needs to placed as a child to the droppable component
         */}
-        {provided => (
+        {(provided, snapshot) => (
           <TaskList 
             ref={provided.innerRef} 
-            {...provided.droppableProps}>
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}>
 
             {tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
@@ -59,6 +60,7 @@ const Title = styled.h3`
 
 const TaskList = styled.div`
   padding: 8px;
+  background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
 `
 
 export default Column
