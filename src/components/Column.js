@@ -1,21 +1,48 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Droppable } from 'react-beautiful-dnd'
 
 import Task from './Task'
 
-const Column = ({ column: { title }, tasks }) => {
+const Column = ({ column: { title, id }, tasks }) => {
 
   return (
     <Container>
       <Title>{title}</Title>
-      <TaskList>
-        {tasks.map((task) => (
-          <Task 
-            key={task.id}
-            task={task}/>
-          )
+      {/* 
+      - Wrapped Tasklist arround the "Droppable" Component
+      The children must we a function that returns a React Component
+      
+      - The drappoable takes one required a unieque droppableID
+      */}
+      <Droppable droppableId={id}>
+        {/*  
+        - The first argument takes an object "Provided"
+
+        - The object has a property called droppableProps, 
+          these needs to be applied to the required component,
+          in our case it is the TaskList
+
+        - InnerRef function supply the DOM node to beautiful-dnd 
+        
+        - The Placeholder is a React Element that is used to
+          increase the available space in a 
+          droppable during a drag when is needed
+          Needs to placed as a child to the droppable component
+        */}
+        {provided => (
+          <TaskList 
+            ref={provided.innerRef} 
+            {...provided.droppableProps}>
+
+            {tasks.map((task, index) => (
+              <Task key={task.id} task={task} index={index} />
+            ))}
+
+            {provided.placeholder}
+          </TaskList>
         )}
-      </TaskList>
+      </Droppable>
     </Container>
   )
 }
