@@ -64,3 +64,11 @@ const TaskList = styled.div`
 `
 
 export default Column
+
+
+
+// Snapshot Object Properties
+// const droppableSnapshop = {
+//  isDraggingOver: true
+//  draggingOverWith:'firstTask'
+// }

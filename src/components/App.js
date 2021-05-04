@@ -9,10 +9,26 @@ const App = () => {
   const [todo, setTodo] = useState(data)
 
   // ##### Helpers
+  const onDragStart = () => {
+    document.body.style.color = 'orange'
+    document.body.style.transition = "all 0.3s ease"
+  }
+
+  const onDragUpdate = (update) => {
+    
+    const { destination } = update;
+    console.log(destination)
+    const opacity = destination ?
+      destination.index / Object.keys(todo.tasks).length :
+      0;
+
+    document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`
+  }
 
   const onDragEnd = (result) => {
 
-    // console.log(result)
+    document.body.style.color = 'inherit'
+    document.body.style.backgroundColor = 'inherit'
 
     const { destination, source, draggableId } = result;
 
@@ -23,8 +39,8 @@ const App = () => {
     if( // Item dropped to the same destination
       destination.drappableId === source.droppableId && 
       destination.index === source.index) {
-        return
-      }
+      return
+    }
 
     const column = todo.columns[source.droppableId]
     const newTaskIds = Array.from(column.taskIds) // Makes an array from a copy of the todo State
@@ -58,7 +74,10 @@ const App = () => {
 
   return (
     // Added DragDropContext to Enable Kanban
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext 
+      onDragStart={onDragStart}
+      onDragUpdate={onDragUpdate}
+      onDragEnd={onDragEnd}>
       {todo.columnOrder.map(columnId => {
         const column = todo.columns[columnId];
         const tasks = column.taskIds.map(taskId => todo.tasks[taskId]);
@@ -90,16 +109,7 @@ export default App
 
 
 
-    // Snapshot Object Properties
-    // const draggableSnapshop = {
-    //  isDragging: true
-    //  draggingOver:'firstCol'
-    // }
 
 
 
-    // Snapshot Object Properties
-    // const droppableSnapshop = {
-    //  isDraggingOver: true
-    //  draggingOverWith:'firstTask'
-    // }
+

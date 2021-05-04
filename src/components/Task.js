@@ -41,3 +41,10 @@ const Container = styled.div`
 `
 
 export default Task
+
+
+// Snapshot Object Properties
+// const draggableSnapshop = {
+//  isDragging: true
+//  draggingOver:'firstCol'
+// }
