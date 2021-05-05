@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import Column from './Column'
 import data from '../data'
@@ -116,13 +116,12 @@ const App = () => {
   }
 
   return (
-    
-    <Container>
-      {/* Added DragDropContext to Enable Kanban */}
-      <DragDropContext 
+    <DragDropContext 
         onDragStart={onDragStart}
         onDragUpdate={onDragUpdate}
         onDragEnd={onDragEnd}>
+
+      <Container>
         {todo.columnOrder.map((columnId, index) => {
           const column = todo.columns[columnId];
           const tasks = column.taskIds.map(taskId => todo.tasks[taskId]);
@@ -136,8 +135,8 @@ const App = () => {
               />
           );
         })}
-      </DragDropContext>
-    </Container>
+        </Container>
+    </DragDropContext>
   )
 }
 
