@@ -45,7 +45,7 @@ const App = () => {
 
     const startCol = todo.columns[source.droppableId]
     const endCol = todo.columns[destination.droppableId]
-    console.log(startCol, endCol)
+    // console.log(startCol, endCol)
 
     if(startCol === endCol) {
       const newTaskIds = Array.from(startCol.taskIds) // Makes an array from a copy of the todo State

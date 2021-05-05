@@ -3,9 +3,12 @@ import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
 
 const Task = ({ task, index }) => {
-  // console.log(task)
-  return (
+  const isDragDisabled = (index === 0) ? true: false;
+  
+  console.log(isDragDisabled)
 
+  return (
+  
   // - Draggable has to required property
   //   A Unique draggableId, and an index passed as a prop
   //
@@ -15,6 +18,7 @@ const Task = ({ task, index }) => {
   //   to the item we want to move araound.
     <Draggable 
       draggableId={task.id} 
+      isDragDisabled={isDragDisabled}
       index={index}>
 
     {(provided, snapshot) => (
@@ -22,6 +26,7 @@ const Task = ({ task, index }) => {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
         ref={provided.innerRef}
+        isDisabled={isDragDisabled}
         isDragging={snapshot.isDragging}>
         
         {/* <Handle {...provided.dragHandleProps}/> */}
@@ -38,7 +43,12 @@ const Container = styled.div`
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 2px;
-  background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
+  background-color: ${props => (
+    props.isDisabled ? 
+      "lightgreen" :
+      props.isDragging ?
+        'salmon' :
+        'white')};
 
   display: flex;
 `
