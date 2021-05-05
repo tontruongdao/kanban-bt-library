@@ -20,10 +20,11 @@ const Task = ({ task, index }) => {
     {(provided, snapshot) => (
       <Container
         {...provided.draggableProps}
-        {...provided.dragHandleProps}
+        // {...provided.dragHandleProps}
         ref={provided.innerRef}
-        isDragging={snapshot.isDragging}
-      >
+        isDragging={snapshot.isDragging}>
+        
+        <Handle {...provided.dragHandleProps}/>
         {task.content}
       </Container>
     )}
@@ -38,6 +39,16 @@ const Container = styled.div`
   margin-bottom: 8px;
   border-radius: 2px;
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
+
+  display: flex;
+`
+
+const Handle = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: blue;
+  border-radius: 4px;
+  margin-right: 8px;
 `
 
 export default Task
