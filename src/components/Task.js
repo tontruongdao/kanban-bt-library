@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
 
 const Task = ({ task, index }) => {
-  const isDragDisabled = (index === 0) ? true: false;
+  const isDragDisabled = (index === 0) ? true: false; // Disabled FirstItem Of The Column
   
-  console.log(isDragDisabled)
+  // console.log(isDragDisabled)
 
   return (
   

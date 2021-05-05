@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd'
 
 import Task from './Task'
 
-const Column = ({ column: { title, id }, tasks }) => {
+const Column = ({ column: { title, id }, tasks, isDropDisabled }) => {
 
   return (
     <Container>
@@ -16,7 +16,7 @@ const Column = ({ column: { title, id }, tasks }) => {
       - The drappoable takes one required a unieque droppableID
       */}
       <Droppable 
-        isDropDisabled={false} // Makes Component No LongerDroppable 
+        isDropDisabled={isDropDisabled} // Makes Component No LongerDroppable 
         droppableId={id}>
         {/*  
         - The first argument takes an object "Provided"

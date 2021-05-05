@@ -8,11 +8,16 @@ import data from '../data'
 const App = () => {
 // ##### React States
   const [todo, setTodo] = useState(data)
+  const [indexState, setIndexState] = useState(null)
 
   // ##### Helpers
-  const onDragStart = () => {
+  const onDragStart = (start) => {
     document.body.style.color = 'orange'
     document.body.style.transition = "all 0.3s ease"
+
+    const homeIndex = todo.columnOrder.indexOf(start.source.droppableId)
+    console.log(homeIndex)
+    setIndexState(homeIndex)
   }
 
   const onDragUpdate = (update) => {
@@ -107,20 +112,29 @@ const App = () => {
   
       setTodo(newState)
     }
+    setIndexState(null)
   }
 
   return (
+    
     <Container>
       {/* Added DragDropContext to Enable Kanban */}
       <DragDropContext 
         onDragStart={onDragStart}
         onDragUpdate={onDragUpdate}
         onDragEnd={onDragEnd}>
-        {todo.columnOrder.map(columnId => {
+        {todo.columnOrder.map((columnId, index) => {
           const column = todo.columns[columnId];
           const tasks = column.taskIds.map(taskId => todo.tasks[taskId]);
 
-          return <Column key={column.id} column={column} tasks={tasks} />;
+          return (
+            <Column 
+              key={column.id} 
+              column={column} 
+              tasks={tasks} 
+              isDropDisabled={index < indexState}
+              />
+          );
         })}
       </DragDropContext>
     </Container>
