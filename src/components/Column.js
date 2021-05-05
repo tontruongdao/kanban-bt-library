@@ -15,7 +15,9 @@ const Column = ({ column: { title, id }, tasks }) => {
       
       - The drappoable takes one required a unieque droppableID
       */}
-      <Droppable droppableId={id}>
+      <Droppable 
+        isDropDisabled={false} // Makes Component No LongerDroppable 
+        droppableId={id}>
         {/*  
         - The first argument takes an object "Provided"
 
@@ -52,6 +54,10 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   border-radius: 2px;
+  width: 220px;
+
+  display: flex;
+  flex-direction: column;
 `
 
 const Title = styled.h3`
@@ -61,6 +67,9 @@ const Title = styled.h3`
 const TaskList = styled.div`
   padding: 8px;
   background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
+
+  flex-grow: 1;
+  min-height: 30vh;
 `
 
 export default Column
