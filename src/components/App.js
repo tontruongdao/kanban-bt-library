@@ -36,7 +36,7 @@ const App = () => {
     document.body.style.color = 'inherit'
     document.body.style.backgroundColor = 'inherit'
 
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if(!destination) { // Nothing to do when no destination
       return
@@ -45,6 +45,21 @@ const App = () => {
     if( // Item dropped to the same destination
       destination.drappableId === source.droppableId && 
       destination.index === source.index) {
+      return
+    }
+
+    // Enables Column Reordering
+    if (type === "column") {
+      const newColumnOrder = Array.from(todo.columnOrder)
+      newColumnOrder.splice(source.index, 1)
+      newColumnOrder.splice(destination.index, 0, draggableId)
+
+      const newState = {
+        ...todo,
+        columnOrder: newColumnOrder
+      }
+
+      setTodo(newState)
       return
     }
 
@@ -121,21 +136,32 @@ const App = () => {
         onDragUpdate={onDragUpdate}
         onDragEnd={onDragEnd}>
 
-      <Container>
-        {todo.columnOrder.map((columnId, index) => {
-          const column = todo.columns[columnId];
-          const tasks = column.taskIds.map(taskId => todo.tasks[taskId]);
+      <Droppable 
+        droppableId="all-columns"
+        direction="hprizontal"
+        // Need to define type not interfere with the other droppable item
+        type="column"> 
+        {(provided) => (
+        <Container
+          {...provided.droppableProps}
+          ref={provided.innerRef}>
+          {todo.columnOrder.map((columnId, index) => {
+            const column = todo.columns[columnId];
+            const tasks = column.taskIds.map(taskId => todo.tasks[taskId]);
 
-          return (
-            <Column 
-              key={column.id} 
-              column={column} 
-              tasks={tasks} 
-              isDropDisabled={index < indexState}
-              />
-          );
-        })}
-        </Container>
+            return (
+              <Column 
+                key={column.id} 
+                column={column} 
+                tasks={tasks} 
+                isDropDisabled={index < indexState}
+                index={index}/>
+            );
+          })}
+          {provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
     </DragDropContext>
   )
 }
