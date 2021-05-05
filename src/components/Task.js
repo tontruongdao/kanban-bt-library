@@ -20,11 +20,11 @@ const Task = ({ task, index }) => {
     {(provided, snapshot) => (
       <Container
         {...provided.draggableProps}
-        // {...provided.dragHandleProps}
+        {...provided.dragHandleProps}
         ref={provided.innerRef}
         isDragging={snapshot.isDragging}>
         
-        <Handle {...provided.dragHandleProps}/>
+        {/* <Handle {...provided.dragHandleProps}/> */}
         {task.content}
       </Container>
     )}
@@ -43,13 +43,13 @@ const Container = styled.div`
   display: flex;
 `
 
-const Handle = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-  border-radius: 4px;
-  margin-right: 8px;
-`
+// const Handle = styled.div`
+//   width: 20px;
+//   height: 20px;
+//   background-color: blue;
+//   border-radius: 4px;
+//   margin-right: 8px;
+// `
 
 export default Task
 

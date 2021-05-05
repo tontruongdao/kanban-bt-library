@@ -13,12 +13,17 @@ const data = {
     },
     'secondCol' : { 
       id: 'secondCol',
+      title: 'In Progress',
+      taskIds: []
+    },
+    'thirdCol' : { 
+      id: 'thirdCol',
       title: 'Completed',
       taskIds: []
     }
   },
 
-  columnOrder: ['firstCol', 'secondCol'],
+  columnOrder: ['firstCol', 'secondCol', 'thirdCol'],
 }
 
 export default data
